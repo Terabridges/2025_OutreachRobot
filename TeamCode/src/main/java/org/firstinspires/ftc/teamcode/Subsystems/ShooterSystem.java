@@ -15,6 +15,8 @@ public class ShooterSystem implements Subsystem {
 
     //Software
     private double shooterPow = 0.0;
+    private double hoodPow = 0.0;
+    private double turretPow = 0.0;
 
     //Constructor
     public ShooterSystem(HardwareMap map){
@@ -27,6 +29,27 @@ public class ShooterSystem implements Subsystem {
     public void toggleShooter(){
         shooterPow = (shooterPow == 0.0 ? 1.0 : 0.0);
     }
+    public void hoodUp(){
+        hoodPow = 0.5;
+    }
+    public void hoodDown(){
+        hoodPow = -0.5;
+    }
+    public void hoodStop(){
+        hoodPow = 0.0;
+    }
+
+    public void turretRight(){
+        turretPow = 1.0;
+    }
+
+    public void turretLeft(){
+        turretPow = -1.0;
+    }
+
+    public void turretStop(){
+        turretPow = 0.0;
+    }
 
     //Interface Methods
     @Override
@@ -36,6 +59,8 @@ public class ShooterSystem implements Subsystem {
     @Override
     public void update(){
         shooterWheel.setPower(shooterPow);
+        hood.setPower(hoodPow);
+        turret.setPower(turretPow);
     }
 
 

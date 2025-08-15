@@ -15,6 +15,15 @@ public class ShooterControl implements Control {
     Gamepad gp2;
     Robot robot;
     EdgeDetector shooterRE = new EdgeDetector(() -> shooter.toggleShooter());
+    EdgeDetector hoodUpRE = new EdgeDetector(() -> shooter.hoodUp());
+    EdgeDetector hoodDownRE = new EdgeDetector(() -> shooter.hoodDown());
+    EdgeDetector hoodUpFE = new EdgeDetector(() -> shooter.hoodStop(), true);
+    EdgeDetector hoodDownFE = new EdgeDetector(() -> shooter.hoodStop(), true);
+    EdgeDetector turretRightRE = new EdgeDetector(() -> shooter.turretRight());
+    EdgeDetector turretLeftRE = new EdgeDetector(() -> shooter.turretLeft());
+    EdgeDetector turretRightFE = new EdgeDetector(() -> shooter.turretStop(), true);
+    EdgeDetector turretLeftFE = new EdgeDetector(() -> shooter.turretStop(), true);
+
 
     //Constructor
     public ShooterControl(ShooterSystem shooter, Gamepad gp1, Gamepad gp2) {
@@ -34,6 +43,14 @@ public class ShooterControl implements Control {
     @Override
     public void update(){
         shooterRE.update(gp1.y);
+        turretLeftRE.update(gp1.dpad_left);
+        turretLeftFE.update(gp1.dpad_left);
+        turretRightRE.update(gp1.dpad_right);
+        turretRightFE.update(gp1.dpad_right);
+        hoodDownRE.update(gp1.dpad_down);
+        hoodDownFE.update(gp1.dpad_down);
+        hoodUpRE.update(gp1.dpad_up);
+        hoodUpFE.update(gp1.dpad_up);
     }
 
     @Override
