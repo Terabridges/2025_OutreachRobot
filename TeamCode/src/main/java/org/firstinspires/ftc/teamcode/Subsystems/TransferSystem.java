@@ -7,18 +7,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class TransferSystem implements Subsystem {
 
     //Hardware
-    public CRServo beltTransfer;
     public DcMotor wheelTransfer;
 
     //Software
+    private double wheelPow = 0.0;
 
     //Constructor
     public TransferSystem(HardwareMap map){
-        beltTransfer = map.get(CRServo.class, "belt_transfer");
         wheelTransfer = map.get(DcMotor.class, "wheel_transfer");
     }
 
     //Methods
+    public void toggleTransfer(){
+        wheelPow = (wheelPow == 0.0 ? 1.0 : 0.0);
+    }
 
     //Interface Methods
     @Override
@@ -27,6 +29,7 @@ public class TransferSystem implements Subsystem {
 
     @Override
     public void update(){
+        wheelTransfer.setPower(wheelPow);
     }
 
 

@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.ShooterSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.TransferSystem;
+import org.firstinspires.ftc.teamcode.Utiliy.EdgeDetector;
 
 public class TransferControl implements Control {
 
@@ -14,6 +15,7 @@ public class TransferControl implements Control {
     Gamepad gp1;
     Gamepad gp2;
     Robot robot;
+    EdgeDetector transferRE = new EdgeDetector(() -> transfer.toggleTransfer());
 
     //Constructor
     public TransferControl(TransferSystem transfer, Gamepad gp1, Gamepad gp2) {
@@ -32,6 +34,7 @@ public class TransferControl implements Control {
     //Interface Methods
     @Override
     public void update(){
+        transferRE.update(gp1.b);
     }
 
     @Override

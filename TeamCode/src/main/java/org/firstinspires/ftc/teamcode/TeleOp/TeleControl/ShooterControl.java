@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.ShooterSystem;
+import org.firstinspires.ftc.teamcode.Utiliy.EdgeDetector;
 
 public class ShooterControl implements Control {
 
@@ -13,6 +14,7 @@ public class ShooterControl implements Control {
     Gamepad gp1;
     Gamepad gp2;
     Robot robot;
+    EdgeDetector shooterRE = new EdgeDetector(() -> shooter.toggleShooter());
 
     //Constructor
     public ShooterControl(ShooterSystem shooter, Gamepad gp1, Gamepad gp2) {
@@ -31,6 +33,7 @@ public class ShooterControl implements Control {
     //Interface Methods
     @Override
     public void update(){
+        shooterRE.update(gp1.y);
     }
 
     @Override

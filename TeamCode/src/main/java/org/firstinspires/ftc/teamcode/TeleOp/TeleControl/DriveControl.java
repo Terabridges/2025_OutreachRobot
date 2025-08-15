@@ -41,7 +41,7 @@ public class DriveControl implements Control {
     @Override
     public void update(){
 
-        slowModeRE.update(gp1.x || gp2.x);
+        slowModeRE.update(gp1.left_bumper);
         speed = (driveSystem.useSlowMode ? SLOW_MULT : FAST_MULT);
 
         double max;

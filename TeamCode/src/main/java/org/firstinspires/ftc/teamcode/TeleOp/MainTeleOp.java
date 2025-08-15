@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleControl.Control;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleControl.DriveControl;
+import org.firstinspires.ftc.teamcode.TeleOp.TeleControl.IntakeControl;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleControl.ShooterControl;
+import org.firstinspires.ftc.teamcode.TeleOp.TeleControl.TransferControl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +25,8 @@ public class MainTeleOp extends LinearOpMode {
 
     public DriveControl driveControl;
     public ShooterControl shooterControl;
+    public IntakeControl intakeControl;
+    public TransferControl transferControl;
     public List<Control> controls;
 
     public Gamepad currentGamepad1;
@@ -36,8 +40,10 @@ public class MainTeleOp extends LinearOpMode {
 
         driveControl = new DriveControl(robot, gamepad1, gamepad2);
         shooterControl = new ShooterControl(robot, gamepad1, gamepad2);
+        intakeControl = new IntakeControl(robot, gamepad1, gamepad2);
+        transferControl = new TransferControl(robot, gamepad1, gamepad2);
 
-        controls = new ArrayList<>(Arrays.asList(driveControl, shooterControl));
+        controls = new ArrayList<>(Arrays.asList(driveControl, shooterControl, intakeControl, transferControl));
 
         currentGamepad1 = new Gamepad();
         previousGamepad1 = new Gamepad();

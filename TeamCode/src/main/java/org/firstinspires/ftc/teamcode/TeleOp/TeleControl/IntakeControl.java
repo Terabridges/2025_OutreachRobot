@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.ShooterSystem;
+import org.firstinspires.ftc.teamcode.Utiliy.EdgeDetector;
 
 public class IntakeControl implements Control {
 
@@ -14,6 +15,7 @@ public class IntakeControl implements Control {
     Gamepad gp1;
     Gamepad gp2;
     Robot robot;
+    EdgeDetector suckerRE = new EdgeDetector(() -> intake.toggleSucker());
 
     //Constructor
     public IntakeControl(IntakeSystem intake, Gamepad gp1, Gamepad gp2) {
@@ -32,6 +34,7 @@ public class IntakeControl implements Control {
     //Interface Methods
     @Override
     public void update(){
+        suckerRE.update(gp1.a);
     }
 
     @Override

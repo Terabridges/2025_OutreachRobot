@@ -14,6 +14,7 @@ public class ShooterSystem implements Subsystem {
     public CRServo hood;
 
     //Software
+    private double shooterPow = 0.0;
 
     //Constructor
     public ShooterSystem(HardwareMap map){
@@ -23,6 +24,9 @@ public class ShooterSystem implements Subsystem {
     }
 
     //Methods
+    public void toggleShooter(){
+        shooterPow = (shooterPow == 0.0 ? 1.0 : 0.0);
+    }
 
     //Interface Methods
     @Override
@@ -31,6 +35,7 @@ public class ShooterSystem implements Subsystem {
 
     @Override
     public void update(){
+        shooterWheel.setPower(shooterPow);
     }
 
 
