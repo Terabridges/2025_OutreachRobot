@@ -22,6 +22,8 @@ public class Robot {
     //Subsystems
     public DriveSystem driveSystem;
     public ShooterSystem shooterSystem;
+    public IntakeSystem intakeSystem;
+    public TransferSystem transferSystem;
 
     //Other
     public String currentState = "none";
@@ -36,8 +38,10 @@ public class Robot {
 
         driveSystem = new DriveSystem(hardwareMap);
         shooterSystem = new ShooterSystem(hardwareMap);
+        intakeSystem = new IntakeSystem(hardwareMap);
+        transferSystem = new TransferSystem(hardwareMap);
 
-        subsystems = new ArrayList<>(Arrays.asList(driveSystem, shooterSystem));
+        subsystems = new ArrayList<>(Arrays.asList(driveSystem, shooterSystem, intakeSystem, transferSystem));
 
         this.gp1 = gp1;
         this.gp2 = gp2;
