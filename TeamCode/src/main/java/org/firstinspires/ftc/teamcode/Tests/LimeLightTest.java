@@ -25,7 +25,7 @@ public class LimeLightTest extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(5);
+        limelight.pipelineSwitch(6);
 
         /*
          * Starts polling for data.  If you neglect to call start(), getLatestResult() will return null.
@@ -100,6 +100,7 @@ public class LimeLightTest extends LinearOpMode {
                 List<LLResultTypes.ColorResult> colorResults = result.getColorResults();
                 for (LLResultTypes.ColorResult cr : colorResults) {
                     telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(), cr.getTargetYDegrees());
+                    telemetry.addData("Pose3D", cr.getTargetPoseCameraSpace());
                 }
             } else {
                 telemetry.addData("Limelight", "No data available");
