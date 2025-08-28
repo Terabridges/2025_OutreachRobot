@@ -55,6 +55,7 @@ public class ShooterControl implements Control {
 
     @Override
     public void addTelemetry(Telemetry telemetry){
+        telemetry.addData("Turret Pos", shooter.getTurretPos());
     }
 
 }

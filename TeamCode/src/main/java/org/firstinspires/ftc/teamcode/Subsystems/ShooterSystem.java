@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.Utiliy.AbsoluteAnalogEncoder;
 
 public class ShooterSystem implements Subsystem {
 
@@ -17,12 +20,22 @@ public class ShooterSystem implements Subsystem {
     private double shooterPow = 0.0;
     private double hoodPow = 0.0;
     private double turretPow = 0.0;
+    public AnalogInput turretAnalog;
+    public AbsoluteAnalogEncoder turretEnc;
+
+    private double turretOffset = 0.0;
+    private double turretGearRatio = 1;
+
+    private double turretPosLimit;
+    private double turretNegLimit;
 
     //Constructor
     public ShooterSystem(HardwareMap map){
         shooterWheel = map.get(DcMotor.class, "shooter_wheel");
         turret = map.get(CRServo.class, "turret");
         hood = map.get(CRServo.class, "hood");
+        turretAnalog = map.get(AnalogInput.class, "turret_analog");
+        turretEnc = new AbsoluteAnalogEncoder(turretAnalog, 3.3, turretOffset, turretGearRatio);
     }
 
     //Methods
@@ -51,6 +64,10 @@ public class ShooterSystem implements Subsystem {
         turretPow = 0.0;
     }
 
+    public double getTurretPos(){
+        return turretEnc.getCurrentPosition();
+    }
+
     //Interface Methods
     @Override
     public void toInit(){
@@ -60,7 +77,12 @@ public class ShooterSystem implements Subsystem {
     public void update(){
         shooterWheel.setPower(shooterPow);
         hood.setPower(hoodPow);
-        turret.setPower(turretPow);
+
+        if(turretPow >= 0 && !(turretEnc.getCurrentPosition() >= turretPosLimit)){
+            turret.setPower(turretPow);
+        } else if(turretPow <= 0 && !(turretEnc.getCurrentPosition() <= turretNegLimit)){
+            turret.setPower(turretPow);
+        }
     }
 
 

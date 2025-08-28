@@ -68,6 +68,7 @@ public class MainTeleOp extends LinearOpMode {
         for (Control c : controls) {
             c.update();
             c.addTelemetry(telemetry);
+            telemetry.update();
         }
     }
 
