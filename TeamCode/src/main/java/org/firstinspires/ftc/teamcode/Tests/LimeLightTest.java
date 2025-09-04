@@ -14,7 +14,7 @@ import java.util.List;
 @TeleOp(name = "DetectionTest")
 public class LimeLightTest extends LinearOpMode {
     private Limelight3A limelight;
-    private final double BASKETBALL_WIDTH = 9.5;
+    private final double HOOP_WIDTH = 14.5;
     private final double FOV_X = 0.9512044;
     private final double FOCAL_COEFFICIENT = 2 * Math.tan(FOV_X/2);
 
@@ -25,7 +25,7 @@ public class LimeLightTest extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(6);
+        limelight.pipelineSwitch(9);
 
         /*
          * Starts polling for data.  If you neglect to call start(), getLatestResult() will return null.
@@ -83,7 +83,7 @@ public class LimeLightTest extends LinearOpMode {
                 List<LLResultTypes.DetectorResult> detectorResults = result.getDetectorResults();
                 for (LLResultTypes.DetectorResult dr : detectorResults) {
                     telemetry.addData("Detector", "Class: %s, Area: %.2f, X: %.2f, Y: %.2f", dr.getClassName(), dr.getTargetArea(), dr.getTargetXDegrees(), dr.getTargetYDegrees());
-                    double detection_distance_z = BASKETBALL_WIDTH / (FOCAL_COEFFICIENT * Math.sqrt(dr.getTargetArea()));
+                    double detection_distance_z = HOOP_WIDTH / (FOCAL_COEFFICIENT * Math.sqrt(dr.getTargetArea()));
                     double detection_distance_y = detection_distance_z * Math.tan(dr.getTargetYDegrees());
                     double detection_distance_x = detection_distance_z * Math.tan(dr.getTargetXDegrees());
                     telemetry.addData("Distances", "X_dist: %.2f, Y_dist: %.2f, Z_dist: %.2f", detection_distance_x, detection_distance_y, detection_distance_z);
