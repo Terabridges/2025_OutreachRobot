@@ -27,8 +27,11 @@ public class ShooterSystem implements Subsystem {
     public static double turretOffset = -50.0;
     public static double turretGearRatio = 1;
 
-    public static double turretPosLimit = 100;
-    public static  double turretNegLimit = 10;
+    public static double turretPosLimit = 345;
+    public static  double turretNegLimit = 15;
+
+    public boolean turningRight = false;
+    public boolean turningLeft = false;
 
     //Constructor
     public ShooterSystem(HardwareMap map){
@@ -54,15 +57,16 @@ public class ShooterSystem implements Subsystem {
     }
 
     public void turretRight(){
-        turretPow = 1.0;
+        turningRight = true;
     }
 
     public void turretLeft(){
-        turretPow = -1.0;
+        turningLeft = true;
     }
 
     public void turretStop(){
-        turretPow = 0.0;
+        turningRight = false;
+        turningLeft = false;
     }
 
     public double getTurretPos(){
@@ -83,12 +87,21 @@ public class ShooterSystem implements Subsystem {
         shooterWheel.setPower(shooterPow);
         hood.setPower(hoodPow);
 
-//        if(turretPow >= 0 && !(turretEnc.getCurrentPosition() >= turretPosLimit)){
-//            turret.setPower(turretPow);
-//        } else if(turretPow <= 0 && !(turretEnc.getCurrentPosition() <= turretNegLimit)){
-//            turret.setPower(turretPow);
-//        }
-        turret.setPower(turretPow);
+        if (turningRight){
+            turretPow = ((turretPosLimit - turretEnc.getCurrentPosition()) / 245);
+        } else if (turningLeft){
+            turretPow = ((turretNegLimit - turretEnc.getCurrentPosition()) / 115);
+        } else {
+            turretPow = 0;
+        }
+
+        if(turretPow >= 0 && !(turretEnc.getCurrentPosition() >= turretPosLimit)){
+            turret.setPower(turretPow);
+        } else if(turretPow <= 0 && !(turretEnc.getCurrentPosition() <= turretNegLimit)){
+            turret.setPower(turretPow);
+        }
+
+
     }
 
     //Negative Limit: 15, -1 full rotation

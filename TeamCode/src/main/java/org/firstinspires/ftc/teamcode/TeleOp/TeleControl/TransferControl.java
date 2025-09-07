@@ -34,7 +34,7 @@ public class TransferControl implements Control {
     //Interface Methods
     @Override
     public void update(){
-        transferRE.update(gp1.b);
+        transferRE.update(gp1.y);
     }
 
     @Override
